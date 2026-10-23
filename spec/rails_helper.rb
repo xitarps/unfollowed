@@ -1,4 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  skip '/app/controllers/application_controller.rb'
+  skip '/app/jobs/application_job.rb'
+  skip '/app/models/application_record.rb'
+  skip '/app/mailers/application_mailer.rb'
+  skip '/app/application_record.rb'
+  skip 'app/helpers/application_helper.rb'
+end
+
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
