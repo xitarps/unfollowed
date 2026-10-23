@@ -1,0 +1,57 @@
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  web:
+    build: .
+    stdin_open: true
+    tty: true
+    user: root
+    entrypoint: ["./config/setup_app.sh"]
+    command: ["bash", "-c", "./bin/rails s -p 3000 -b '0.0.0.0'"]
+    env_file:
+      - ./.env
+    environment:
+      BUNDLE_WITHOUT: ""
+      BUNDLE_DEPLOYMENT: "0"
+    volumes:
+      - .:/home/app/web
+    working_dir: /home/app/web
+    ports:
+      - "3000:3000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build: .
+    user: root
+    entrypoint: ["./config/setup_app.sh"]
+    command: ["bash", "./worker/entrypoint.sh"]
+    env_file:
+      - ./.env
+    environment:
+      BUNDLE_WITHOUT: ""
+      BUNDLE_DEPLOYMENT: "0"
+    volumes:
+      - .:/home/app/web
+    working_dir: /home/app/web
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  redisdata:
