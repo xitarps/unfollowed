@@ -1,0 +1,11 @@
+{
+	email {$ACME_EMAIL}
+}
+
+{$APP_DOMAIN}, www.{$APP_DOMAIN} {
+	reverse_proxy web:3000
+}
+
+{$KEYCLOAK_DOMAIN} {
+	reverse_proxy keycloak:8080
+}
