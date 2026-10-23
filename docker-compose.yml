@@ -13,6 +13,40 @@ services:
       retries: 10
     restart: unless-stopped
 
+  db:
+    image: postgres:17
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "127.0.0.1:${DB_HOST_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init-keycloak-db.sh:/docker-entrypoint-initdb.d/init-keycloak-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    entrypoint: ["/opt/keycloak/entrypoint.sh"]
+    env_file:
+      - ./.env
+    ports:
+      - "${KEYCLOAK_BIND_ADDRESS:-0.0.0.0}:${KEYCLOAK_HOST_PORT:-8080}:8080"
+    volumes:
+      - ./docker/keycloak/entrypoint.sh:/opt/keycloak/entrypoint.sh:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
   web:
     build: .
     stdin_open: true
@@ -31,6 +65,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      db:
+        condition: service_healthy
       redis:
         condition: service_healthy
     restart: unless-stopped
@@ -49,9 +85,31 @@ services:
       - .:/home/app/web
     working_dir: /home/app/web
     depends_on:
+      db:
+        condition: service_healthy
       redis:
         condition: service_healthy
     restart: unless-stopped
 
+  caddy:
+    image: caddy:2
+    profiles: ["production"]
+    env_file:
+      - ./.env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+      - keycloak
+    restart: unless-stopped
+
 volumes:
   redisdata:
+  pgdata:
+  caddy_data:
+  caddy_config:

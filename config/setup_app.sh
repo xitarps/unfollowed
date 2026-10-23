@@ -8,12 +8,12 @@ if [ -f tmp/pids/server.pid ]; then
   rm -f tmp/pids/server.pid
 fi
 
-if [ "${RAILS_ENV:-development}" != "development" ]; then
-  echo ' --> Running migrations '
-  bin/rails db:migrate
-  echo ' --> End of migrations '
-else
-  echo ' --> Skip migrations for Dev env'
-fi
+# Only the web container prepares the database, avoiding a race with the worker.
+case "$*" in
+  *"rails s"*)
+    echo ' --> Preparing database '
+    bin/rails db:prepare
+    ;;
+esac
 
 exec "$@"

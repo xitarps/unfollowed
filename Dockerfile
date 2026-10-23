@@ -22,10 +22,11 @@ RUN apt-get update -qq && \
       curl \
       git \
       libjemalloc2 \
+      libpq-dev \
       libvips \
       libyaml-dev \
       pkg-config \
-      sqlite3 && \
+      postgresql-client && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
