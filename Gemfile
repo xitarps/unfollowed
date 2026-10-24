@@ -31,6 +31,10 @@ gem "solid_cable"
 gem "sidekiq"
 gem "redis"
 
+# Authentication: Rails -> Keycloak (OIDC) -> GitHub
+gem "omniauth_openid_connect"
+gem "omniauth-rails_csrf_protection"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

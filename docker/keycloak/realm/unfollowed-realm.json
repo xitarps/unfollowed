@@ -1,0 +1,37 @@
+{
+  "realm": "unfollowed",
+  "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "identityProviders": [
+    {
+      "alias": "github",
+      "providerId": "github",
+      "enabled": true,
+      "trustEmail": true,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "clientId": "${GITHUB_CLIENT_ID}",
+        "clientSecret": "${GITHUB_CLIENT_SECRET}",
+        "defaultScope": "read:user user:email"
+      }
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "${OIDC_CLIENT_ID}",
+      "name": "Unfollowed",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "${OIDC_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["${APP_URL}/auth/keycloak/callback"],
+      "webOrigins": ["${APP_URL}"],
+      "attributes": {
+        "post.logout.redirect.uris": "${APP_URL}/*"
+      }
+    }
+  ]
+}
