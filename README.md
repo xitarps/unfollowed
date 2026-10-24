@@ -28,7 +28,7 @@ Serviços:
 
 ### Autenticação (Keycloak + GitHub)
 
-O botão **Sign in** faz login via OIDC no Keycloak (realm `unfollowed`, importado de `docker/keycloak/realm/unfollowed-realm.json` com `--import-realm`), e o Keycloak autentica com o GitHub. `/followers` só é acessível para usuários autenticados.
+O botão **Sign in** faz login via OIDC no Keycloak (realm `unfollowed`, importado de `docker/keycloak/realm/unfollowed-realm.json` com `--import-realm`), e o Keycloak autentica com o GitHub. `/unfollowers` só é acessível para usuários autenticados.
 
 1. Crie um **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps):
    - Homepage URL: `APP_URL` (ex.: `https://unfollowed.com.br`)
@@ -37,6 +37,18 @@ O botão **Sign in** faz login via OIDC no Keycloak (realm `unfollowed`, importa
 3. Suba o stack. O realm só é importado na primeira vez; mudanças posteriores devem ser feitas no console do Keycloak.
 
 Em desenvolvimento, deixe `OIDC_IDP_HINT` vazio para ver a tela de login do Keycloak e entrar com um usuário criado no console (http://localhost:8080, realm `unfollowed`).
+
+### Unfollowers (quem você segue e não te segue de volta)
+
+`/unfollowers` lista, com paginação, as contas que você segue e que não seguem você de volta, com botão **Unfollow** por conta e **Unfollow all** no topo (executado em background pelo Sidekiq, com pausa de 1s entre as chamadas por causa dos limites do GitHub).
+
+O token do GitHub não passa pelo navegador: o Keycloak o guarda (broker) e o Rails o busca em `/realms/unfollowed/broker/github/token` logo após o login. A lógica fica em `app/services/github/` (orquestradores + `FetcherService`s + `Providers`, sobre `ServiceInterface`).
+
+Requisitos no Keycloak (já vêm no `unfollowed-realm.json`; em um realm criado manualmente, ajuste em Identity providers → GitHub):
+- **Store tokens** e **Stored tokens readable**: ligados
+- **Default scopes**: `user:email read:user user:follow`
+
+Usuários que já tinham feito login antes dessa mudança precisam ser apagados (Users → Delete) e entrar de novo, para o Keycloak guardar o token e conceder a role `read-token`. No OAuth App do GitHub, deixe **Expire user access tokens** desmarcado: o Keycloak não renova o token do GitHub.
 
 ### Produção (unfollowed.com.br)
 
