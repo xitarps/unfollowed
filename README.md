@@ -85,6 +85,8 @@ O app usa a API REST do GitHub pelo gem **Octokit**, sempre com o token do próp
 
 Como o limite de requisições do GitHub é por token, a lista é guardada em cache (ver [Uso do cache](#uso-do-cache)) e os unfollows em lote passam pelo Sidekiq, em vez de rodarem dentro de uma requisição web.
 
+Referência: [Limites de taxa da API REST do GitHub](https://docs.github.com/pt/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2026-03-10).
+
 ### Uso do Sidekiq
 
 O unfollow, individual ou em lote, roda em jobs ([UnfollowUserJob](app/jobs/unfollow_user_job.rb) e [UnfollowAllJob](app/jobs/unfollow_all_job.rb)):
