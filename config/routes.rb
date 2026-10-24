@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   get "/auth/failure", to: "sessions#failure"
   delete "/sign_out", to: "sessions#destroy", as: :sign_out
 
-  resources :followers, only: :index
+
+  resources :unfollowers, only: :index do
+    post :unfollow, on: :member, path: "unfollow"
+    post :unfollow_all, on: :collection
+  end
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     ActiveSupport::SecurityUtils.secure_compare(
