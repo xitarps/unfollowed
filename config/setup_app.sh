@@ -17,6 +17,9 @@ case "$*" in
     if [ "$RAILS_ENV" = "production" ]; then
       echo ' --> Precompiling assets '
       bin/rails assets:clobber assets:precompile
+    else
+      # Stale precompiled assets would make Propshaft ignore live changes in development.
+      bin/rails assets:clobber
     fi
     ;;
 esac
