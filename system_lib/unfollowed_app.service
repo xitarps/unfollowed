@@ -1,0 +1,19 @@
+[Unit]
+Description=Unfollowed (Docker Compose: web, worker, Redis, Postgres, Keycloak, Caddy)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# Usuario dono do projeto na VPS (precisa estar no grupo docker); "~" = home dele
+User=xita
+WorkingDirectory=~/app/unfollowed
+ExecStart=/usr/bin/docker compose --profile production up -d --build
+ExecStop=/usr/bin/docker compose --profile production down
+ExecReload=/usr/bin/docker compose --profile production up -d --build
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

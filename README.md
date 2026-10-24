@@ -56,6 +56,32 @@ Usuários que já tinham feito login antes dessa mudança precisam ser apagados 
 2. `cp .env.production.example .env`, preencha `RAILS_MASTER_KEY`, `ACME_EMAIL` e troque todos os `change-me`.
 3. `docker compose --profile production up -d --build`
 
+#### Subir com a VPS (systemd)
+
+O arquivo [system_lib/unfollowed_app.service](system_lib/unfollowed_app.service) sobe e derruba toda a stack (`docker compose --profile production`).
+
+```bash
+# 1. Clone o projeto (o service assume `~/app/unfollowed`) e crie o .env
+mkdir -p ~/app && git clone https://github.com/xitarps/unfollowed.git ~/app/unfollowed
+cd ~/app/unfollowed && cp .env.production.example .env   # preencha os valores
+
+# 2. Edite `User=` em system_lib/unfollowed_app.service para o seu usuario da VPS
+#    (precisa estar no grupo docker: sudo usermod -aG docker $USER)
+#    Link simbolico para o systemd (as alteracoes via git pull valem sem copiar)
+sudo ln -s "$HOME/app/unfollowed/system_lib/unfollowed_app.service" /etc/systemd/system/unfollowed_app.service
+sudo systemctl daemon-reload
+
+# 3. Use
+sudo systemctl start unfollowed_app     # sobe (build + up -d)
+sudo systemctl enable unfollowed_app    # sobe junto com a VPS
+sudo systemctl disable unfollowed_app   # nao sobe mais com a VPS
+sudo systemctl stop unfollowed_app      # derruba os containers
+sudo systemctl reload unfollowed_app    # rebuild apos git pull
+systemctl status unfollowed_app
+```
+
+`WorkingDirectory=~` resolve para a home do `User=`. Se clonar em outro diretorio, altere `WorkingDirectory` (caminho absoluto) no service e rode `sudo systemctl daemon-reload`. O caminho do `docker` pode ser conferido com `which docker`. O Docker precisa estar habilitado (`sudo systemctl enable docker`).
+
 O Keycloak fica em https://auth.unfollowed.com.br; com `KEYCLOAK_BIND_ADDRESS=127.0.0.1` a porta 8080 não é exposta externamente. O TLS termina no Caddy, e `FORCE_SSL=true` ativa `assume_ssl`/`force_ssl` no Rails.
 
 O Rails usa PostgreSQL (`DB_*` no `.env`); o `web` executa `db:prepare` ao iniciar. Em produção, os bancos de cache e cable usam o nome de `DB_NAME` com sufixo `_cache` e `_cable`.
