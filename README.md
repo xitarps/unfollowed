@@ -26,6 +26,18 @@ Serviços:
 - `keycloak`: Keycloak em http://localhost:8080. O modo vem de `KEYCLOAK_COMMAND` no `.env` (`start-dev` em desenvolvimento, `start` em produção), via `docker/keycloak/entrypoint.sh`; admin em `KC_BOOTSTRAP_ADMIN_*`, dados no PostgreSQL
 - `caddy` (profile `production`): proxy reverso com TLS automático (Let's Encrypt) para `APP_DOMAIN` e `KEYCLOAK_DOMAIN`
 
+### Autenticação (Keycloak + GitHub)
+
+O botão **Sign in** faz login via OIDC no Keycloak (realm `unfollowed`, importado de `docker/keycloak/realm/unfollowed-realm.json` com `--import-realm`), e o Keycloak autentica com o GitHub. `/followers` só é acessível para usuários autenticados.
+
+1. Crie um **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps):
+   - Homepage URL: `APP_URL` (ex.: `https://unfollowed.com.br`)
+   - Authorization callback URL: `<KC_HOSTNAME>/realms/unfollowed/broker/github/endpoint` (ex.: `https://auth.unfollowed.com.br/realms/unfollowed/broker/github/endpoint`)
+2. No `.env`, preencha `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `OIDC_CLIENT_SECRET` (qualquer segredo forte) e use `OIDC_IDP_HINT=github`.
+3. Suba o stack. O realm só é importado na primeira vez; mudanças posteriores devem ser feitas no console do Keycloak.
+
+Em desenvolvimento, deixe `OIDC_IDP_HINT` vazio para ver a tela de login do Keycloak e entrar com um usuário criado no console (http://localhost:8080, realm `unfollowed`).
+
 ### Produção (unfollowed.com.br)
 
 1. Crie registros DNS `A` para `unfollowed.com.br`, `www` e `auth` apontando para o servidor, e libere as portas 80 e 443.

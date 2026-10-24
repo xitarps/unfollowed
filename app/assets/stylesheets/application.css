@@ -210,3 +210,8 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 .logo-xl { height: 64px; vertical-align: middle }
 .logo-large { height: 48px; vertical-align: middle }
 
+
+.btn-ruby { cursor: pointer; font-size: 1rem; font-family: inherit }
+.card .inline-form, .card .btn-ruby { width: 100% }
+.signin-action { margin-top: 1.5rem }
+.signin-action .btn-ruby { margin-top: 0 }
