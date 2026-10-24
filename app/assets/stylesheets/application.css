@@ -372,3 +372,22 @@ nav.pagination .page.current { box-shadow: 0 4px 12px rgba(204, 52, 45, 0.45) }
 .legal p { line-height: 1.6; margin: 0 0 0.5rem; overflow-wrap: anywhere }
 .legal-updated { color: #9fa0a3; font-size: 0.9rem }
 .legal .btn-ruby { display: inline-block; margin: 1rem 0.5rem 0 0; text-decoration: none }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .site-header { padding: 0.75rem 0.9rem }
+  .site-brand { gap: 0.5rem; min-width: 0 }
+  .site-nav { gap: 0.5rem }
+  .signed-in { display: none }
+  .site-nav .btn-ruby { padding: 0.5rem 0.65rem }
+  .site-nav .btn-ruby .btn-label { display: none }
+  .site-nav .btn-ruby.loading { min-width: 2.4rem; justify-content: center }
+  .site-main { padding: 1rem 0.9rem }
+  .legal { padding: 1.25rem 1.1rem; margin: 1rem auto }
+
+  .site-footer { padding: 1.25rem 0.9rem }
+  .footer-inner { flex-direction: column; text-align: center; gap: 0.75rem }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1rem }
+  .footer-links a { margin: 0 }
+  .footer-copy { margin-top: 0.25rem; font-size: 0.85rem }
+}
