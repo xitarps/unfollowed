@@ -1,0 +1,11 @@
+<article class="legal">
+  <h1><%= t("pages.privacy.title") %></h1>
+  <p class="legal-updated"><%= t("pages.updated") %></p>
+  <p><%= t("pages.privacy.intro") %></p>
+  <% t("pages.privacy.sections").each_value do |section| %>
+    <section>
+      <h2><%= section[:heading] %></h2>
+      <p><%= section[:body] %></p>
+    </section>
+  <% end %>
+</article>

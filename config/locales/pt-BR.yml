@@ -39,3 +39,73 @@ pt-BR:
   views:
     pagination:
       truncate: "&hellip;"
+  pages:
+    updated: "Última atualização: 24 de outubro de 2026"
+    terms:
+      title: "Termos de Uso"
+      intro: "Ao entrar no Unfollowed você concorda com estes termos. Se não concordar, por favor não utilize o serviço."
+      sections:
+        service:
+          heading: "O que o Unfollowed faz"
+          body: "O Unfollowed mostra as contas do GitHub que você segue e que não seguem você de volta, e permite deixar de segui-las uma a uma ou todas de uma vez."
+        account:
+          heading: "Sua conta"
+          body: "Você entra com a sua própria conta do GitHub. Você é responsável pelas ações feitas com ela, incluindo cada unfollow solicitado."
+        permissions:
+          heading: "Permissões"
+          body: "Para funcionar, o app pede ao GitHub permissão para ler seu perfil e e-mail e gerenciar quem você segue. Ele nunca publica, edita repositórios ou altera qualquer outra coisa."
+        irreversible:
+          heading: "Deixar de seguir é decisão sua"
+          body: "O unfollow é feito no GitHub e o Unfollowed não consegue desfazê-lo. Revise a lista antes de usar Unfollow all."
+        use:
+          heading: "Uso aceitável"
+          body: "Não use o serviço para abusar do GitHub, burlar seus limites de requisição ou prejudicar outras pessoas. O GitHub pode limitar ou suspender contas que violem os termos dele."
+        warranty:
+          heading: "Sem garantias"
+          body: "O serviço é oferecido como está, sem garantia de disponibilidade ou precisão. Na medida permitida por lei, não nos responsabilizamos por perdas decorrentes do uso."
+        changes:
+          heading: "Alterações"
+          body: "Estes termos podem mudar com o tempo. A data no topo mostra a última atualização; continuar usando o serviço significa aceitar a nova versão."
+        affiliation:
+          heading: "Sem vínculo com o GitHub"
+          body: "O Unfollowed é um projeto independente. GitHub é marca da GitHub, Inc., que não endossa este serviço."
+    privacy:
+      title: "Política de Privacidade"
+      intro: "Esta página explica quais dados o Unfollowed usa e por quê. Coletamos apenas o necessário para o serviço funcionar."
+      sections:
+        data:
+          heading: "Dados que usamos"
+          body: "Seu nome, usuário e e-mail do GitHub e a lista de contas que você segue e que seguem você. O login é feito pelo nosso servidor de identidade (Keycloak), que guarda seu perfil básico e a sua autorização do GitHub."
+        access_token:
+          heading: "Seu token de acesso do GitHub"
+          body: "O token é usado apenas para chamar a API do GitHub em seu nome. Ele fica na sua sessão e é criptografado ao ser enviado para tarefas em segundo plano. Nunca é exibido nem compartilhado."
+        lists:
+          heading: "Listas de seguidores"
+          body: "As listas ficam em um cache temporário por pouco tempo para acelerar a página e evitar limites do GitHub, e depois são descartadas."
+        cookies:
+          heading: "Cookies"
+          body: "Usamos um cookie de sessão para manter você conectado e lembrar do seu idioma. Não usamos cookies de publicidade ou rastreamento."
+        sharing:
+          heading: "Compartilhamento"
+          body: "Não vendemos nem compartilhamos seus dados. Eles só são trocados com o GitHub, que você já usa, para realizar as ações que você pede."
+        control:
+          heading: "Seu controle"
+          body: "Saia a qualquer momento para encerrar a sessão. Você pode revogar o app nas configurações do GitHub, em Applications, e pedir a exclusão dos seus dados pelo e-mail xitamailer@gmail.com."
+        changes:
+          heading: "Alterações"
+          body: "Se esta política mudar, a data no topo será atualizada."
+    contact:
+      title: "Contato"
+      intro: "Dúvidas, bugs ou ideias? Adoraríamos ouvir você."
+      sections:
+        email:
+          heading: "E-mail"
+          body: "Escreva para nós e responderemos assim que possível."
+        issues:
+          heading: "Abra uma issue"
+          body: "A melhor forma de falar conosco é pela página do projeto no GitHub. Descreva o que aconteceu e, se possível, o que você esperava."
+        privacy:
+          heading: "Pedidos de privacidade"
+          body: "Para pedir a remoção dos seus dados, envie um e-mail pelo endereço que você usa no GitHub, citando seu usuário. Nunca envie tokens nem senhas."
+      issues: "Abrir issue no GitHub"
+      email_address: "xitamailer@gmail.com"

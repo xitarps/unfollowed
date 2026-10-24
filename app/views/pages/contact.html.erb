@@ -1,0 +1,15 @@
+<article class="legal">
+  <h1><%= t("pages.contact.title") %></h1>
+  <p><%= t("pages.contact.intro") %></p>
+  <% t("pages.contact.sections").each_value do |section| %>
+    <section>
+      <h2><%= section[:heading] %></h2>
+      <p><%= section[:body] %></p>
+    </section>
+  <% end %>
+  <p>
+    <%= mail_to t("pages.contact.email_address"), t("pages.contact.email_address"), class: "btn-ruby" %>
+    <%= link_to t("pages.contact.issues"), "https://github.com/xitarps/unfollowed/issues",
+                class: "btn-ruby", target: "_blank", rel: "noopener" %>
+  </p>
+</article>

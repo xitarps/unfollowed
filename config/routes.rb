@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   delete "/sign_out", to: "sessions#destroy", as: :sign_out
   patch "/locale", to: "locales#update", as: :locale
 
+  get "/terms", to: "pages#terms", as: :terms
+  get "/privacy", to: "pages#privacy", as: :privacy
+  get "/contact", to: "pages#contact", as: :contact
 
   resources :unfollowers, only: :index do
     post :unfollow, on: :member, path: "unfollow"

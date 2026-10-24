@@ -39,3 +39,73 @@ en:
   views:
     pagination:
       truncate: "&hellip;"
+  pages:
+    updated: "Last updated: October 24, 2026"
+    terms:
+      title: "Terms of Use"
+      intro: "By signing in to Unfollowed you agree to these terms. If you do not agree, please do not use the service."
+      sections:
+        service:
+          heading: "What Unfollowed does"
+          body: "Unfollowed shows the GitHub accounts you follow that do not follow you back, and lets you unfollow them one at a time or all at once."
+        account:
+          heading: "Your account"
+          body: "You sign in with your own GitHub account. You are responsible for the actions taken with it, including every unfollow you request."
+        permissions:
+          heading: "Permissions"
+          body: "To work, the app asks GitHub for permission to read your profile and email and to manage who you follow. It never posts, edits repositories or changes anything else."
+        irreversible:
+          heading: "Unfollowing is up to you"
+          body: "Unfollowing is performed on GitHub and Unfollowed cannot undo it. Review the list before using Unfollow all."
+        use:
+          heading: "Acceptable use"
+          body: "Do not use the service to abuse GitHub, to bypass its rate limits or to harm others. GitHub may limit or suspend accounts that violate its own terms."
+        warranty:
+          heading: "No warranty"
+          body: "The service is provided as is, without guarantees of availability or accuracy. To the extent allowed by law, we are not liable for losses arising from its use."
+        changes:
+          heading: "Changes"
+          body: "These terms may change over time. The date at the top shows the latest update; continuing to use the service means you accept the new version."
+        affiliation:
+          heading: "Not affiliated with GitHub"
+          body: "Unfollowed is an independent project. GitHub is a trademark of GitHub, Inc., which does not endorse this service."
+    privacy:
+      title: "Privacy Policy"
+      intro: "This page explains which data Unfollowed uses and why. We collect only what is needed to make the service work."
+      sections:
+        data:
+          heading: "Data we use"
+          body: "Your GitHub name, username, email and the list of accounts you follow and who follow you. Your sign-in is handled by our identity server (Keycloak), which keeps your basic profile and your GitHub authorization."
+        access_token:
+          heading: "Your GitHub access token"
+          body: "The token is used only to call the GitHub API for you. It stays in your session and is encrypted when handed to background jobs. It is never shown or shared."
+        lists:
+          heading: "Follower lists"
+          body: "Lists are kept in a temporary cache for a short time to speed up the page and avoid GitHub rate limits, and then discarded."
+        cookies:
+          heading: "Cookies"
+          body: "We use a session cookie to keep you signed in and remember your language. We do not use advertising or tracking cookies."
+        sharing:
+          heading: "Sharing"
+          body: "We do not sell or share your data. It is only exchanged with GitHub, which you already use, to perform the actions you request."
+        control:
+          heading: "Your control"
+          body: "Sign out at any time to end the session. You can revoke the app in your GitHub settings under Applications, and ask us to delete your account data by emailing xitamailer@gmail.com."
+        changes:
+          heading: "Changes"
+          body: "If this policy changes, the date at the top will be updated."
+    contact:
+      title: "Contact"
+      intro: "Questions, bug reports or ideas? We would love to hear from you."
+      sections:
+        email:
+          heading: "Email"
+          body: "Write to us and we will reply as soon as we can."
+        issues:
+          heading: "Open an issue"
+          body: "The best way to reach us is the project page on GitHub. Describe what happened and, if possible, what you expected."
+        privacy:
+          heading: "Privacy requests"
+          body: "To ask for your data to be removed, email us from the address you use on GitHub, mentioning your GitHub username. Never send tokens or passwords."
+      issues: "Open an issue on GitHub"
+      email_address: "xitamailer@gmail.com"

@@ -66,10 +66,10 @@
           <strong>Unfollowed</strong>
         </div>
         <div class="footer-links">
-          <a href="#"><%= t("layout.footer.home") %></a>
-          <a href="#"><%= t("layout.footer.terms") %></a>
-          <a href="#"><%= t("layout.footer.privacy") %></a>
-          <a href="#"><%= t("layout.footer.contact") %></a>
+          <%= link_to t("layout.footer.home"), root_path %>
+          <%= link_to t("layout.footer.terms"), terms_path %>
+          <%= link_to t("layout.footer.privacy"), privacy_path %>
+          <%= link_to t("layout.footer.contact"), contact_path %>
         </div>
         <div class="footer-copy"><%= t("layout.footer.copyright", year: Time.current.year) %></div>
       </div>
