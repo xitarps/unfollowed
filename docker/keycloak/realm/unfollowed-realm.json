@@ -9,11 +9,13 @@
       "providerId": "github",
       "enabled": true,
       "trustEmail": true,
+      "storeToken": true,
+      "addReadTokenRoleOnCreate": true,
       "firstBrokerLoginFlowAlias": "first broker login",
       "config": {
         "clientId": "${GITHUB_CLIENT_ID}",
         "clientSecret": "${GITHUB_CLIENT_SECRET}",
-        "defaultScope": "read:user user:email"
+        "defaultScope": "user:email read:user user:follow"
       }
     }
   ],
