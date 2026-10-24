@@ -2,6 +2,8 @@
 
 Lista as contas do GitHub que você segue e que não seguem você de volta, e permite deixar de seguir uma a uma ou todas de uma vez.
 
+O projeto foi inspirado em [github-unfollow-checker](https://github-unfollow-checker.vercel.app/home). Como aquele site parecia não estar funcionando corretamente, isso foi motivo suficiente para explorar o tema e construir uma versão própria, com layout, código e textos independentes.
+
 ## Arquitetura
 
 ### Visão geral
