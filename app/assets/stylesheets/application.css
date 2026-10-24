@@ -15,13 +15,6 @@ body {
 	color: #fff;
 	background-color: #0b0b0b; /* near black fallback */
 
-	/* App background image (place your file at app/assets/images/background.jpg) */
-	background-image: url('/assets/background.jpg');
-	background-size: 50% 100%;
-	background-position: right center;
-	background-repeat: no-repeat;
-	/* Fix the image so it doesn't scroll with content on larger screens */
-	background-attachment: fixed;
 	position: relative;
 }
 
@@ -30,7 +23,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(90deg, rgba(3,3,3,1) 0%, rgba(3,3,3,1) 50%, rgba(3,3,3,0.25) 62%, rgba(3,3,3,0.1) 100%);
+  background: linear-gradient(90deg, rgba(3,3,3,0.55) 0%, rgba(3,3,3,0.35) 45%, rgba(3,3,3,0) 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -46,11 +39,6 @@ header.site-header,
 
 /* On small screens, avoid background-attachment:fixed (mobile performance and UX) */
 @media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
   body::before { background: rgba(3,3,3,0.7); }
 }
 
@@ -110,8 +98,6 @@ form button:hover { background: #0256b5 }
 	align-items: center;
 	justify-content: space-between;
 	padding: 1rem 1.25rem;
-	border-bottom: 1px solid rgba(255,255,255,0.03);
-	background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
 }
 .site-brand { display:flex; align-items:center; gap:0.75rem }
 .site-title { font-weight:700; color:var(--ruby-white) }
@@ -163,9 +149,9 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 }
 
 .card {
-	max-width: 360px;
+	max-width: 400px;
 	width: 100%;
-	padding: 2rem 0;
+	padding: 2.5rem 2rem;
 	text-align: left;
 }
 
@@ -225,10 +211,39 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 .btn-ruby.loading svg { display: none }
 @keyframes spin { to { transform: rotate(360deg) } }
 
-.skeleton-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem }
-.skeleton-row { display: flex; align-items: center; gap: 1rem }
-.skeleton { display: block; border-radius: 8px; background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 37%, #2a2a2a 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite }
+.skeleton { display: block; border-radius: 8px; background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.16) 37%, rgba(255,255,255,0.06) 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite }
 .skeleton-avatar { width: 48px; height: 48px; border-radius: 50% }
 .skeleton-text { flex: 1; height: 18px; max-width: 320px }
 .skeleton-btn { width: 90px; height: 32px; margin-left: auto; border-radius: 999px }
 @keyframes shimmer { 0% { background-position: 100% 50% } 100% { background-position: 0 50% } }
+
+/* Animated ruby lights (pure CSS), adapted from https://codepen.io/sylvaingarnot/pen/OJqoXaR */
+.ruby-lights { position: fixed; inset: 0; overflow: hidden; z-index: -1; background: #0b0b0b; pointer-events: none }
+.ruby-lights .light {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 100vh;
+	transform: rotate(10deg);
+	transform-origin: top right;
+	box-shadow:
+		-130px 0 80px 40px #0b0b0b,
+		-50px 0 50px 25px var(--c1),
+		0 0 50px 25px var(--c2),
+		50px 0 50px 25px var(--c3),
+		130px 0 80px 40px #0b0b0b;
+	animation: ruby-slide var(--duration) linear infinite;
+	animation-delay: var(--delay);
+	will-change: translate;
+}
+.ruby-lights .mask-h { position: absolute; bottom: 0; left: 0; width: 100vw; height: 0; box-shadow: 0 0 50vh 40vh #0b0b0b }
+.ruby-lights .mask-v { position: absolute; bottom: 0; left: 0; width: 0; height: 100vh; box-shadow: 0 0 35vw 25vw #0b0b0b }
+@keyframes ruby-slide {
+	from { translate: 25vw 0 }
+	to { translate: -125vw 0 }
+}
+@media (prefers-reduced-motion: reduce) {
+	.ruby-lights .light { animation: none; translate: -40vw 0 }
+}
+

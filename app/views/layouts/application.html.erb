@@ -25,7 +25,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body style="background-image: url('<%= asset_path 'background.jpg' %>'); background-size: 50% 100%; background-position: right center; background-repeat: no-repeat; background-attachment: fixed;">
+  <body>
+    <%= render "shared/ruby_lights" %>
     <header class="site-header">
       <div class="site-brand">
         <%= image_tag "/logo.png", class: "logo-xl", alt: "Unfollowed" %>
