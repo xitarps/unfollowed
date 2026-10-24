@@ -13,7 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     response_type: :code,
     discovery: false,
     issuer: issuer,
-    authorize_params: { kc_idp_hint: ENV["OIDC_IDP_HINT"].presence }.compact,
+    extra_authorize_params: { kc_idp_hint: ENV["OIDC_IDP_HINT"].presence }.compact, #goes direct to providers authorization page
     client_options: {
       identifier: ENV.fetch("OIDC_CLIENT_ID", "unfollowed"),
       secret: ENV.fetch("OIDC_CLIENT_SECRET", "change-me"),
