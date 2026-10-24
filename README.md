@@ -145,6 +145,13 @@ Passo a passo:
 6. **Sessão:** o Rails guarda na sessão (cookie criptografado) o token do GitHub, o `id_token` e nome e e-mail do usuário, e leva para `/unfollowers`.
 7. **Logout:** o Rails apaga a sessão e redireciona ao logout do Keycloak com `id_token_hint`, o que encerra a sessão lá sem tela de confirmação.
 
+**O que é o `code` do fluxo?** É o *código de autorização* do OAuth 2.0 / OpenID Connect (fluxo *Authorization Code*): uma credencial temporária, de uso único, que só serve para ser trocada pelos tokens reais.
+
+- O redirecionamento passa pelo navegador, um canal exposto (histórico, logs, extensões). Por isso o token não vai por ali: só o `code` aparece na URL do callback.
+- Ele vale poucos instantes, só pode ser usado uma vez e, sozinho, não dá acesso a nada.
+- A troca por tokens acontece direto entre servidores (*back-channel*), usando o segredo do cliente, fora do navegador.
+- Aparece duas vezes no fluxo: do GitHub para o Keycloak (que o troca pelo token do GitHub) e do Keycloak para o Rails (que o troca pelo `access_token` e pelo `id_token` do Keycloak).
+
 **Por que usar o Keycloak em vez de OAuth direto com o GitHub?** Ele concentra a identidade, as sessões e a política de login num serviço próprio. O app fica sem código de OAuth, e novos provedores de login podem ser adicionados no Keycloak sem alterar a aplicação.
 
 **Fora do desenho:** o app não guarda usuários nem tokens em banco. Tudo vive na sessão do navegador e no Keycloak.
