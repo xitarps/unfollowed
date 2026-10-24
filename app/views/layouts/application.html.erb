@@ -59,6 +59,7 @@
       <%= yield %>
     </main>
 
+    <% cache static_cache_key([ "footer", Time.current.year ]) do %>
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-brand">
@@ -74,5 +75,6 @@
         <div class="footer-copy"><%= t("layout.footer.copyright", year: Time.current.year) %></div>
       </div>
     </footer>
+    <% end %>
   </body>
 </html>

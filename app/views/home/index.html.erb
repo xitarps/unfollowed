@@ -1,11 +1,15 @@
 <section class="hero">
   <div class="card">
-    <h1><%= t("home.welcome") %></h1>
-    <p class="lead"><%= t("home.lead") %></p>
+    <% cache static_cache_key("home/intro") do %>
+      <h1><%= t("home.welcome") %></h1>
+      <p class="lead"><%= t("home.lead") %></p>
+    <% end %>
     <div class="signin-action">
       <%= render "shared/sign_in_button" %>
     </div>
 
-    <p class="footer-note"><%= t("home.terms_note") %></p>
+    <% cache static_cache_key("home/terms_note") do %>
+      <p class="footer-note"><%= t("home.terms_note") %></p>
+    <% end %>
   </div>
 </section>
