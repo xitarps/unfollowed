@@ -273,3 +273,45 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 .btn-ruby:hover { box-shadow: 0 8px 22px rgba(204, 52, 45, 0.6), 0 3px 6px rgba(0, 0, 0, 0.5); transform: translateY(-1px) }
 .btn-ruby:active { box-shadow: 0 3px 8px rgba(204, 52, 45, 0.4); transform: translateY(0) }
 .btn-ruby.loading { box-shadow: 0 3px 8px rgba(204, 52, 45, 0.3) }
+
+/* Each unfollower row is its own frosted glass pane */
+.glass-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem }
+.glass-row {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.75rem 1.25rem;
+	border-radius: 16px;
+	background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015));
+	border: 1px solid rgba(255,255,255,0.18);
+	border-top-color: rgba(255,255,255,0.3);
+	border-left-color: rgba(255,255,255,0.3);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
+	backdrop-filter: blur(12px) saturate(150%);
+	-webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+.glass-row img { border-radius: 50%; flex-shrink: 0 }
+.glass-row-name { flex: 1; font-weight: 600; color: var(--ruby-white); text-decoration: none }
+.glass-row-name:hover { text-decoration: underline }
+.glass-row .inline-form, .glass-row form { margin: 0 }
+@supports not (backdrop-filter: blur(1px)) {
+	.glass-row { background: rgba(30,12,12,0.85) }
+}
+
+/* Pagination as a frosted glass pill */
+nav.pagination {
+	width: fit-content;
+	margin: 1.5rem auto 0;
+	padding: 0.4rem 0.6rem;
+	border-radius: 999px;
+	justify-content: center;
+	background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.015));
+	border: 1px solid rgba(255,255,255,0.18);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.15);
+	backdrop-filter: blur(12px) saturate(150%);
+	-webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+nav.pagination a, nav.pagination span { border-color: transparent; border-radius: 999px; text-decoration: none }
+nav.pagination .page a:hover, nav.pagination .prev a:hover, nav.pagination .next a:hover,
+nav.pagination .first a:hover, nav.pagination .last a:hover { background: rgba(255,255,255,0.12) }
+nav.pagination .page.current { box-shadow: 0 4px 12px rgba(204, 52, 45, 0.45) }

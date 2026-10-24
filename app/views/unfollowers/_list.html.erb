@@ -14,28 +14,17 @@
 <% if @users.empty? %>
   <p class="lead">Everyone you follow follows you back.</p>
 <% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Avatar</th>
-        <th>Username</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><img src="<%= user[:avatar_url] %>" width="48" height="48" alt="<%= user[:login] %>"></td>
-          <td><%= link_to user[:login], "https://github.com/#{user[:login]}", target: "_blank", rel: "noopener" %></td>
-          <td>
-            <%= button_to "Unfollow", unfollow_unfollower_path(user[:login], page: params[:page]), method: :post,
-                  data: { turbo_confirm: "Unfollow #{user[:login]}?" }, form: { data: { turbo_frame: "_top" } },
-                  class: "btn-ruby small" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="glass-list" role="list">
+    <% @users.each do |user| %>
+      <div class="glass-row" role="listitem">
+        <img src="<%= user[:avatar_url] %>" width="48" height="48" alt="<%= user[:login] %>">
+        <%= link_to user[:login], "https://github.com/#{user[:login]}", target: "_blank", rel: "noopener", class: "glass-row-name" %>
+        <%= button_to "Unfollow", unfollow_unfollower_path(user[:login], page: params[:page]), method: :post,
+              data: { turbo_confirm: "Unfollow #{user[:login]}?" }, form: { data: { turbo_frame: "_top" } },
+              class: "btn-ruby small" %>
+      </div>
+    <% end %>
+  </div>
 
   <%= paginate @users %>
 <% end %>
