@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
-    return redirect_to root_path, alert: "Sign in failed" unless auth
+    return redirect_to root_path, alert: t("flash.sign_in_failed") unless auth
 
     reset_session
     github_token = Github::Authentication::TokenFetcherService.call(access_token: auth.credentials&.token)
-    return redirect_to root_path, alert: "Could not get your GitHub access token" if github_token.errors.any?
+    return redirect_to root_path, alert: t("flash.token_failed") if github_token.errors.any?
 
     session[:github_token] = github_token.result
     session[:id_token] = auth.credentials&.id_token
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    redirect_to root_path, alert: "Sign in failed"
+    redirect_to root_path, alert: t("flash.sign_in_failed")
   end
 
   def destroy

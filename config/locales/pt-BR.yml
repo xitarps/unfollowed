@@ -1,0 +1,41 @@
+pt-BR:
+  layout:
+    sign_in: "Entrar"
+    signing_in: "Entrando..."
+    sign_out: "Sair"
+    signing_out: "Saindo..."
+    signed_in_as: "Conectado como"
+    footer:
+      home: "Início"
+      terms: "Termos de Uso"
+      privacy: "Política de Privacidade"
+      contact: "Contato"
+      copyright: "© %{year} Unfollowed. Todos os direitos reservados."
+    locale_toggle:
+      label: "Idioma"
+      switch_to: "Mudar o idioma para %{language}"
+  home:
+    welcome: "Bem-vindo!"
+    lead: "Use seu perfil do GitHub para liberar tudo o que o app oferece."
+    terms_note: "Ao entrar, você aceita os Termos de Serviço e a Política de Privacidade."
+  unfollowers:
+    title: "Quem você segue e não segue você de volta"
+    empty: "Todo mundo que você segue também segue você de volta."
+    loading: "Carregando"
+    unfollow: "Deixar de seguir"
+    unfollowing: "Deixando de seguir..."
+    unfollow_all: "Deixar de seguir todos (%{count})"
+    starting: "Iniciando..."
+    confirm_one: "Deixar de seguir %{login}?"
+    confirm_all: "Deixar de seguir as %{count} contas que não seguem você de volta?"
+    load_error: "Não foi possível carregar sua lista do GitHub. Tente novamente em instantes."
+    notice:
+      unfollow: "Deixando de seguir %{login}. A lista será atualizada em instantes."
+      unfollow_all: "Deixando de seguir todos que não seguem você de volta. Isso pode levar alguns minutos."
+  flash:
+    sign_in_required: "Faça login para continuar"
+    sign_in_failed: "Falha ao entrar"
+    token_failed: "Não foi possível obter seu token de acesso do GitHub"
+  views:
+    pagination:
+      truncate: "&hellip;"

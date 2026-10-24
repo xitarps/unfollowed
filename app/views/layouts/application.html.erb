@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
     <title><%= content_for(:title) || "Unfollowed" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,13 +34,14 @@
       </div>
 
       <nav class="site-nav">
+        <%= render "shared/locale_toggle" %>
         <% if current_user %>
-          <span class="signed-in">Signed in as <strong><%= current_user["name"] %></strong></span>
+          <span class="signed-in"><%= t("layout.signed_in_as") %> <strong><%= current_user["name"] %></strong></span>
           <%= button_to sign_out_path, method: :delete, class: "btn-ruby small",
-                form: { class: "inline-form", data: { turbo: false, controller: "loading-button", loading_button_text_value: "Signing out...", action: "submit->loading-button#start" } },
+                form: { class: "inline-form", data: { turbo: false, controller: "loading-button", loading_button_text_value: t("layout.signing_out"), action: "submit->loading-button#start" } },
                 data: { loading_button_target: "button" } do %>
             <span class="spinner" aria-hidden="true"></span>
-            <span data-loading-button-target="label">Sign out</span>
+            <span data-loading-button-target="label"><%= t("layout.sign_out") %></span>
           <% end %>
         <% else %>
           <%= render "shared/sign_in_button" %>
@@ -65,12 +66,12 @@
           <strong>Unfollowed</strong>
         </div>
         <div class="footer-links">
-          <a href="#">Home</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Contact</a>
+          <a href="#"><%= t("layout.footer.home") %></a>
+          <a href="#"><%= t("layout.footer.terms") %></a>
+          <a href="#"><%= t("layout.footer.privacy") %></a>
+          <a href="#"><%= t("layout.footer.contact") %></a>
         </div>
-        <div class="footer-copy">© <%= Time.current.year %> Unfollowed. All rights reserved.</div>
+        <div class="footer-copy"><%= t("layout.footer.copyright", year: Time.current.year) %></div>
       </div>
     </footer>
   </body>

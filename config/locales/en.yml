@@ -1,31 +1,41 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  layout:
+    sign_in: "Sign in"
+    signing_in: "Signing in..."
+    sign_out: "Sign out"
+    signing_out: "Signing out..."
+    signed_in_as: "Signed in as"
+    footer:
+      home: "Home"
+      terms: "Terms of Use"
+      privacy: "Privacy Policy"
+      contact: "Contact"
+      copyright: "© %{year} Unfollowed. All rights reserved."
+    locale_toggle:
+      label: "Language"
+      switch_to: "Switch language to %{language}"
+  home:
+    welcome: "Welcome!"
+    lead: "Use your GitHub profile to unlock everything the app has to offer."
+    terms_note: "By signing in you accept the Terms of Service and Privacy Policy."
+  unfollowers:
+    title: "People you follow who don't follow you back"
+    empty: "Everyone you follow follows you back."
+    loading: "Loading"
+    unfollow: "Unfollow"
+    unfollowing: "Unfollowing..."
+    unfollow_all: "Unfollow all (%{count})"
+    starting: "Starting..."
+    confirm_one: "Unfollow %{login}?"
+    confirm_all: "Unfollow all %{count} accounts that don't follow you back?"
+    load_error: "We couldn't load your list from GitHub. Please try again in a moment."
+    notice:
+      unfollow: "Unfollowing %{login}. The list will update in a moment."
+      unfollow_all: "Unfollowing everyone who doesn't follow you back. This may take a few minutes."
+  flash:
+    sign_in_required: "Please sign in"
+    sign_in_failed: "Sign in failed"
+    token_failed: "Could not get your GitHub access token"
+  views:
+    pagination:
+      truncate: "&hellip;"

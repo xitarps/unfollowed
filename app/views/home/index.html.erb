@@ -1,11 +1,11 @@
 <section class="hero">
   <div class="card">
-    <h1>Welcome!</h1>
-    <p class="lead">Use your GitHub profile to unlock everything the app has to offer.</p>
+    <h1><%= t("home.welcome") %></h1>
+    <p class="lead"><%= t("home.lead") %></p>
     <div class="signin-action">
       <%= render "shared/sign_in_button" %>
     </div>
 
-    <p class="footer-note">By signing in you accept the Terms of Service and Privacy Policy.</p>
+    <p class="footer-note"><%= t("home.terms_note") %></p>
   </div>
 </section>

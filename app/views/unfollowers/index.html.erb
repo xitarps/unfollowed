@@ -1,9 +1,9 @@
 <%= turbo_frame_tag "unfollowers-list", src: unfollowers_path(page: params[:page]), loading: :lazy,
       data: { turbo_action: "advance" } do %>
   <div class="page-header">
-    <h1>People you follow who don't follow you back</h1>
+    <h1><%= t("unfollowers.title") %></h1>
   </div>
-  <div class="glass-list" role="status" aria-label="Loading">
+  <div class="glass-list" role="status" aria-label="<%= t("unfollowers.loading") %>">
     <% 6.times do %>
       <div class="glass-row">
         <span class="skeleton skeleton-avatar"></span>

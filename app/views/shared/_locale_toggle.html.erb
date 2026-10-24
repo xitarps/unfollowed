@@ -1,0 +1,10 @@
+<% other = I18n.locale == :en ? :"pt-BR" : :en %>
+<%= button_to locale_path(locale: other), method: :patch, class: "locale-toggle",
+      form: { class: "inline-form", data: { turbo: false, controller: "loading-button", action: "submit->loading-button#start" } },
+      data: { loading_button_target: "button" },
+      title: t("layout.locale_toggle.switch_to", language: other == :en ? "English" : "Português"),
+      "aria-label": t("layout.locale_toggle.switch_to", language: other == :en ? "English" : "Português") do %>
+  <span class="spinner" aria-hidden="true"></span>
+  <span class="<%= 'active' if I18n.locale == :en %>">EN</span>
+  <span class="<%= 'active' if I18n.locale == :"pt-BR" %>">PT</span>
+<% end %>
