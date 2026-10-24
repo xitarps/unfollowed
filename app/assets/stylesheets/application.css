@@ -264,3 +264,12 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 @supports not (backdrop-filter: blur(1px)) {
 	.site-header, .card { background: rgba(30,12,12,0.85) }
 }
+
+/* Drop shadow under the sign in / sign out buttons */
+.btn-ruby {
+	box-shadow: 0 6px 16px rgba(204, 52, 45, 0.45), 0 2px 4px rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+.btn-ruby:hover { box-shadow: 0 8px 22px rgba(204, 52, 45, 0.6), 0 3px 6px rgba(0, 0, 0, 0.5); transform: translateY(-1px) }
+.btn-ruby:active { box-shadow: 0 3px 8px rgba(204, 52, 45, 0.4); transform: translateY(0) }
+.btn-ruby.loading { box-shadow: 0 3px 8px rgba(204, 52, 45, 0.3) }
