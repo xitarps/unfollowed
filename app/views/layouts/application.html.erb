@@ -35,7 +35,12 @@
       <nav class="site-nav">
         <% if current_user %>
           <span class="signed-in">Signed in as <strong><%= current_user["name"] %></strong></span>
-          <%= button_to "Sign out", sign_out_path, method: :delete, form: { class: "inline-form" }, class: "btn-ruby small" %>
+          <%= button_to sign_out_path, method: :delete, class: "btn-ruby small",
+                form: { class: "inline-form", data: { turbo: false, controller: "loading-button", loading_button_text_value: "Signing out...", action: "submit->loading-button#start" } },
+                data: { loading_button_target: "button" } do %>
+            <span class="spinner" aria-hidden="true"></span>
+            <span data-loading-button-target="label">Sign out</span>
+          <% end %>
         <% else %>
           <%= render "shared/sign_in_button" %>
         <% end %>
