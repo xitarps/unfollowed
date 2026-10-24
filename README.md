@@ -26,17 +26,17 @@ Tudo roda em containers do mesmo `docker-compose.yml`, em uma única VPS de **4 
 
 Consumo real medido com `docker stats` na VPS, com a stack em repouso:
 
-| Container | Memória | % dos 3,82 GiB |
-|---|---|---|
-| keycloak | 391,2 MiB | 10,0% |
-| web (Rails) | 148,5 MiB | 3,8% |
-| worker (Sidekiq) | 132,0 MiB | 3,4% |
-| db (PostgreSQL) | 27,9 MiB | 0,7% |
-| caddy | 12,1 MiB | 0,3% |
-| redis | 3,7 MiB | 0,1% |
-| **Total** | **≈ 715 MiB** | **≈ 18%** |
+| Container | CPU | Memória | % dos 3,82 GiB | Rede (entrada / saída) | Disco (leitura / escrita) | PIDs |
+|---|---|---|---|---|---|---|
+| keycloak | 0,49% | 391,2 MiB | 10,00% | 400 kB / 1,44 MB | 4,1 kB / 150 MB | 45 |
+| web (Rails) | 0,03% | 148,5 MiB | 3,80% | 31,4 MB / 1,16 MB | 504 kB / 35,3 MB | 11 |
+| worker (Sidekiq) | 0,22% | 132,0 MiB | 3,37% | 30,1 MB / 769 kB | 0 B / 32,9 MB | 11 |
+| db (PostgreSQL) | 0,00% | 27,9 MiB | 0,71% | 235 kB / 489 kB | 0 B / 1,02 MB | 6 |
+| caddy | 0,00% | 12,1 MiB | 0,31% | 2,25 MB / 2,33 MB | 496 kB / 4,1 kB | 8 |
+| redis | 0,95% | 3,7 MiB | 0,09% | 677 kB / 1,61 MB | 2,3 MB / 418 kB | 6 |
+| **Total** | **1,69%** | **≈ 715 MiB** | **≈ 18,3%** | **≈ 65,1 MB / 7,8 MB** | **≈ 3,3 MB / 219,6 MB** | **87** |
 
-A stack inteira usa cerca de 0,7 GiB e a CPU fica abaixo de 1% em repouso, então sobra bastante folga para picos, para o build das imagens e para o sistema. O Keycloak sozinho é mais da metade do total.
+A stack inteira usa cerca de 0,7 GiB e somam apenas 1,69% de CPU em repouso (a CPU é por núcleo, como no `docker stats`), então sobra bastante folga para picos, para o build das imagens e para o sistema. O Keycloak sozinho é mais da metade do total.
 
 ### Componentes e motivos
 
