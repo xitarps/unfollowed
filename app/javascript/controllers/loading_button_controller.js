@@ -6,17 +6,17 @@ export default class extends Controller {
   static values = { text: { type: String, default: "Signing in..." } }
 
   start() {
-    this.originalText = this.labelTarget.textContent
+    if (this.hasLabelTarget) this.originalText = this.labelTarget.textContent
     setTimeout(() => {
       this.buttonTarget.disabled = true
       this.buttonTarget.classList.add("loading")
-      this.labelTarget.textContent = this.textValue
+      if (this.hasLabelTarget) this.labelTarget.textContent = this.textValue
     }, 0)
   }
 
   stop() {
     this.buttonTarget.disabled = false
     this.buttonTarget.classList.remove("loading")
-    if (this.originalText) this.labelTarget.textContent = this.originalText
+    if (this.hasLabelTarget && this.originalText) this.labelTarget.textContent = this.originalText
   }
 }

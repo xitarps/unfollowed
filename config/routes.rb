@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get "/auth/keycloak/callback", to: "sessions#create"
   get "/auth/failure", to: "sessions#failure"
   delete "/sign_out", to: "sessions#destroy", as: :sign_out
+  patch "/locale", to: "locales#update", as: :locale
 
 
   resources :unfollowers, only: :index do
