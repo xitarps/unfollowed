@@ -5,7 +5,10 @@ class SessionsController < ApplicationController
 
     reset_session
     github_token = Github::Authentication::TokenFetcherService.call(access_token: auth.credentials&.token)
-    return redirect_to root_path, alert: t("flash.token_failed") if github_token.errors.any?
+    if github_token.errors.any?
+      Rails.logger.warn("GitHub token fetch failed: #{github_token.errors.join('; ')}")
+      return redirect_to root_path, alert: t("flash.token_failed")
+    end
 
     session[:github_token] = github_token.result
     session[:id_token] = auth.credentials&.id_token
