@@ -54,6 +54,56 @@ A stack inteira usa cerca de 0,7 GiB e somam apenas 1,69% de CPU em repouso (a C
 | **`.env`** | Configuração e segredos | Ver [Configuração por `.env`](#configuração-por-env). |
 | **systemd** | Sobe a stack junto com a VPS | Ver [Service do systemd](#service-do-systemd). |
 
+### Docker Compose: componentes, ligações e portas
+
+```mermaid
+flowchart TB
+    Internet((Internet))
+
+    subgraph host["VPS (host)"]
+        direction TB
+        subgraph net["rede default do Compose (DNS pelo nome do serviço)"]
+            caddy["caddy<br/>profile production<br/>80, 443"]
+            web["web (Rails)<br/>3000"]
+            worker["worker (Sidekiq)<br/>sem porta"]
+            keycloak["keycloak<br/>8080"]
+            db[("db (PostgreSQL 17)<br/>5432")]
+            redis[("redis 7<br/>6379")]
+        end
+        volumes[["volumes: pgdata, redisdata, caddy_data, caddy_config"]]
+    end
+
+    Internet -->|"80 / 443"| caddy
+    caddy -->|"reverse_proxy web:3000"| web
+    caddy -->|"reverse_proxy keycloak:8080"| keycloak
+    web -->|"DB_HOST=db:5432"| db
+    web -->|"REDIS_URL=redis:6379"| redis
+    worker -->|"DB_HOST=db:5432"| db
+    worker -->|"consome a fila"| redis
+    keycloak -->|"banco keycloak, db:5432"| db
+    web -->|"OIDC_INTERNAL_URL=keycloak:8080"| keycloak
+    db --- volumes
+    redis --- volumes
+    caddy --- volumes
+```
+
+| Serviço | Imagem | Porta interna | Publicada no host | Depende de | Volumes |
+|---|---|---|---|---|---|
+| `caddy` (profile `production`) | `caddy:2` | 80, 443 | `80:80` e `443:443` (públicas) | `web`, `keycloak` | `caddy_data`, `caddy_config`, `docker/caddy/Caddyfile` |
+| `web` | build do `Dockerfile` | 3000 | `3000:3000` | `db` e `redis` saudáveis | código do projeto |
+| `worker` | build do `Dockerfile` | nenhuma | nenhuma | `db` e `redis` saudáveis | código do projeto |
+| `keycloak` | `quay.io/keycloak/keycloak:26.0` | 8080 | `${KEYCLOAK_BIND_ADDRESS}:${KEYCLOAK_HOST_PORT}:8080` (`127.0.0.1:8080` em produção, `0.0.0.0:8080` em dev) | `db` saudável | `docker/keycloak/` (entrypoint e realm importado) |
+| `db` | `postgres:17` | 5432 | `127.0.0.1:${DB_HOST_PORT:-5432}:5432` (só local) | nenhum | `pgdata`, script `init-keycloak-db.sh` |
+| `redis` | `redis:7-alpine` | 6379 | `127.0.0.1:6379:6379` (só local) | nenhum | `redisdata` |
+
+Pontos importantes:
+
+- **Dentro da rede do Compose**, os serviços se acham pelo nome (`db`, `redis`, `keycloak`, `web`), por isso o `.env` usa `DB_HOST=db`, `REDIS_URL=redis://redis:6379/0` e `OIDC_INTERNAL_URL=http://keycloak:8080/...`.
+- **Só o Caddy deve ficar exposto à internet** (80 e 443). PostgreSQL e Redis publicam apenas em `127.0.0.1`, e o Keycloak também fica em `127.0.0.1` em produção, sendo acessado de fora só via Caddy em `auth.unfollowed.com.br`.
+- **Porta 3000 do `web`:** o compose a publica em todas as interfaces. Em produção, o tráfego deve entrar pelo Caddy, então bloqueie a 3000 no firewall da VPS (por exemplo `sudo ufw deny 3000`), ou o app ficará acessível por HTTP, sem TLS.
+- **Duas URLs do Keycloak:** o navegador usa `OIDC_ISSUER` (`https://auth.unfollowed.com.br/...`), enquanto o Rails, dentro da rede, usa `OIDC_INTERNAL_URL` (`http://keycloak:8080/...`).
+- **Ordem de subida:** `db` e `redis` têm healthcheck, e `web`, `worker` e `keycloak` só iniciam depois que eles estão saudáveis.
+
 ### Por que Caddy e não Nginx
 
 - **TLS automático:** o Caddy obtém e renova os certificados do Let's Encrypt sozinho. Com Nginx seria preciso Certbot, um cron ou timer de renovação e o recarregamento do serviço, mais peças para quebrar.
