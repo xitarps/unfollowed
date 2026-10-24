@@ -1,5 +1,5 @@
 class Github::FetchUnfollowersService < ServiceInterface
-  CACHE_TTL = 5.minutes
+  CACHE_TTL = 1.minutes
 
   attr_reader :cached
 
