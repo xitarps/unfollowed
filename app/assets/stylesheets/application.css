@@ -355,6 +355,7 @@ nav.pagination .page.current { box-shadow: 0 4px 12px rgba(204, 52, 45, 0.45) }
 
 /* Static pages (terms, privacy, contact) */
 .legal {
+  box-sizing: border-box;
   width: min(760px, 100%);
   margin: 2rem auto;
   padding: 2rem 2.25rem;
@@ -368,6 +369,6 @@ nav.pagination .page.current { box-shadow: 0 4px 12px rgba(204, 52, 45, 0.45) }
 }
 .legal h1 { margin: 0 0 0.25rem; color: #fff }
 .legal h2 { margin: 1.5rem 0 0.35rem; font-size: 1.1rem; color: var(--ruby-white, #fff) }
-.legal p { line-height: 1.6; margin: 0 0 0.5rem }
+.legal p { line-height: 1.6; margin: 0 0 0.5rem; overflow-wrap: anywhere }
 .legal-updated { color: #9fa0a3; font-size: 0.9rem }
 .legal .btn-ruby { display: inline-block; margin: 1rem 0.5rem 0 0; text-decoration: none }
