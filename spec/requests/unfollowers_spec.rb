@@ -44,6 +44,7 @@ RSpec.describe "Unfollowers", type: :request do
       get unfollowers_path, headers: frame
 
       expect(response.body).to include("user1", "Unfollow all (25)", "pagination")
+      expect(response.body).to include('data-controller="loading-button"', "turbo:submit-start-&gt;loading-button#start")
       expect(response.body).not_to include("user21")
 
       get unfollowers_path(page: 2), headers: frame

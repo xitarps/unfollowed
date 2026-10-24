@@ -5,9 +5,13 @@
 <div class="page-header">
   <h1>People you follow who don't follow you back</h1>
   <% if @users.total_count.positive? %>
-    <%= button_to "Unfollow all (#{@users.total_count})", unfollow_all_unfollowers_path, method: :post,
-          data: { turbo_confirm: "Unfollow all #{@users.total_count} accounts that don't follow you back?" },
-          form: { class: "inline-form", data: { turbo_frame: "_top" } }, class: "btn-ruby" %>
+    <%= button_to unfollow_all_unfollowers_path, method: :post, class: "btn-ruby",
+          data: { turbo_confirm: "Unfollow all #{@users.total_count} accounts that don't follow you back?", loading_button_target: "button" },
+          form: { class: "inline-form", data: { turbo_frame: "_top", controller: "loading-button", loading_button_text_value: "Starting...",
+                  action: "turbo:submit-start->loading-button#start turbo:submit-end->loading-button#stop" } } do %>
+      <span class="spinner" aria-hidden="true"></span>
+      <span data-loading-button-target="label">Unfollow all (<%= @users.total_count %>)</span>
+    <% end %>
   <% end %>
 </div>
 
@@ -19,9 +23,13 @@
       <div class="glass-row" role="listitem">
         <img src="<%= user[:avatar_url] %>" width="48" height="48" alt="<%= user[:login] %>">
         <%= link_to user[:login], "https://github.com/#{user[:login]}", target: "_blank", rel: "noopener", class: "glass-row-name" %>
-        <%= button_to "Unfollow", unfollow_unfollower_path(user[:login], page: params[:page]), method: :post,
-              data: { turbo_confirm: "Unfollow #{user[:login]}?" }, form: { data: { turbo_frame: "_top" } },
-              class: "btn-ruby small" %>
+        <%= button_to unfollow_unfollower_path(user[:login], page: params[:page]), method: :post, class: "btn-ruby small",
+              data: { turbo_confirm: "Unfollow #{user[:login]}?", loading_button_target: "button" },
+              form: { data: { turbo_frame: "_top", controller: "loading-button", loading_button_text_value: "Unfollowing...",
+                      action: "turbo:submit-start->loading-button#start turbo:submit-end->loading-button#stop" } } do %>
+          <span class="spinner" aria-hidden="true"></span>
+          <span data-loading-button-target="label">Unfollow</span>
+        <% end %>
       </div>
     <% end %>
   </div>
