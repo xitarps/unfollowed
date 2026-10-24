@@ -35,6 +35,11 @@ gem "redis"
 gem "omniauth_openid_connect"
 gem "omniauth-rails_csrf_protection"
 
+# GitHub API and pagination
+gem "octokit"
+gem "faraday-retry"
+gem "kaminari"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
