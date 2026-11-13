@@ -26,12 +26,13 @@ en:
     unfollowing: "Unfollowing..."
     unfollow_all: "Unfollow all (%{count})"
     starting: "Starting..."
+    refresh: "Refresh"
     confirm_one: "Unfollow %{login}?"
     confirm_all: "Unfollow all %{count} accounts that don't follow you back?"
     load_error: "We couldn't load your list from GitHub. Please try again in a moment."
     notice:
       unfollow: "Unfollowing %{login}. The list will update in a moment."
-      unfollow_all: "Unfollowing everyone who doesn't follow you back. This may take a few minutes."
+      unfollow_all: "Unfollowing everyone who doesn't follow you back. This may take a few minutes. Click \"Refresh\" to update the list."
   flash:
     sign_in_required: "Please sign in"
     sign_in_failed: "Sign in failed"

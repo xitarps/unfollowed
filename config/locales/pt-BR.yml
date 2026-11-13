@@ -26,12 +26,13 @@ pt-BR:
     unfollowing: "Deixando de seguir..."
     unfollow_all: "Deixar de seguir todos (%{count})"
     starting: "Iniciando..."
+    refresh: "Atualizar"
     confirm_one: "Deixar de seguir %{login}?"
     confirm_all: "Deixar de seguir as %{count} contas que não seguem você de volta?"
     load_error: "Não foi possível carregar sua lista do GitHub. Tente novamente em instantes."
     notice:
       unfollow: "Deixando de seguir %{login}. A lista será atualizada em instantes."
-      unfollow_all: "Deixando de seguir todos que não seguem você de volta. Isso pode levar alguns minutos."
+      unfollow_all: "Deixando de seguir todos que não seguem você de volta. Isso pode levar alguns minutos. Clique em \"Atualizar\" para atualizar a lista."
   flash:
     sign_in_required: "Faça login para continuar"
     sign_in_failed: "Falha ao entrar"

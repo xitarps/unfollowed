@@ -4,6 +4,11 @@
 <% end %>
 <div class="page-header">
   <h1><%= t("unfollowers.title") %></h1>
+  <div class="page-actions">
+    <%= link_to unfollowers_path(page: params[:page]), class: "btn-ruby small btn-refresh" do %>
+      <span aria-hidden="true">&#8635;</span>
+      <%= t("unfollowers.refresh") %>
+    <% end %>
   <% if @users.total_count.positive? %>
     <%= button_to unfollow_all_unfollowers_path, method: :post, class: "btn-ruby",
           data: { turbo_confirm: t("unfollowers.confirm_all", count: @users.total_count), loading_button_target: "button" },
@@ -13,6 +18,7 @@
       <span data-loading-button-target="label"><%= t("unfollowers.unfollow_all", count: @users.total_count) %></span>
     <% end %>
   <% end %>
+  </div>
 </div>
 
 <% if @users.empty? %>

@@ -210,6 +210,9 @@ a:focus, a:active { outline: 2px solid rgba(204,52,45,0.25); outline-offset: 2px
 
 .page-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap }
 .page-header .inline-form, .page-header .btn-ruby { width: auto }
+.page-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap }
+.page-actions .inline-form { margin: 0 }
+.btn-refresh { display: inline-flex; align-items: center; gap: 0.35rem; text-decoration: none; color: inherit }
 
 .spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(255, 255, 255, 0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite }
 .btn-ruby.loading { opacity: 0.8; cursor: progress }
