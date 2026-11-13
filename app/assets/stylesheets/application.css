@@ -104,7 +104,7 @@ form button:hover { background: #0256b5 }
 	justify-content: space-between;
 	padding: 1rem 1.25rem;
 }
-.site-brand { display:flex; align-items:center; gap:0.75rem }
+.site-brand { display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:inherit }
 .site-title { font-weight:700; color:var(--ruby-white) }
 .site-nav { display:flex; align-items:center; gap:0.75rem }
 .inline-form { display:inline }

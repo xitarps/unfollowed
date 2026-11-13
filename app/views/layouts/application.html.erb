@@ -28,10 +28,10 @@
   <body>
     <%= render "shared/ruby_lights" %>
     <header class="site-header">
-      <div class="site-brand">
+      <%= link_to root_path, class: "site-brand", aria: { label: "Unfollowed" } do %>
         <%= image_tag "/logo.png", class: "logo-xl", alt: "Unfollowed" %>
         <span class="site-title">Unfollowed</span>
-      </div>
+      <% end %>
 
       <nav class="site-nav">
         <%= render "shared/locale_toggle" %>
