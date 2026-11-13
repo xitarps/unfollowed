@@ -391,3 +391,25 @@ nav.pagination .page.current { box-shadow: 0 4px 12px rgba(204, 52, 45, 0.45) }
   .footer-links a { margin: 0 }
   .footer-copy { margin-top: 0.25rem; font-size: 0.85rem }
 }
+
+/* Mobile: simple, static layout (no animations, blur or fixed layers) */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  body {
+    background: #0b0b0b;
+    overflow-x: hidden;
+  }
+  body::before { display: none }
+
+  .ruby-lights { display: none !important }
+
+  .card, .site-header, .glass-row, nav.pagination, .legal {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #1a0f0f;
+    box-shadow: none;
+  }
+
+  .btn-ruby, .locale-toggle span { transition: none }
+  .btn-ruby:hover, .btn-ruby:active { transform: none }
+  .skeleton { animation: none }
+}
